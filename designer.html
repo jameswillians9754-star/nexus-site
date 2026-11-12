@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXUS DESIGNER — Design gráfico e serviços digitais</title>
+<meta name="description" content="CVs, cartões digitais, menus digitais, logótipos, cartazes e mais. Pede pelo WhatsApp ou email.">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/designer.css">
+</head>
+<body data-page="design" data-brand="designer">
+<a class="skip-link" href="#main">Saltar para o conteúdo</a>
+<header class="site-header" id="site-header"></header>
+<main id="main">
+<section class="d-hero"><div class="container"><img src="assets/logo-hero.png" alt="Nexus Design" width="200" style="width:200px;height:auto;margin-bottom:6px"><span class="eyebrow">Design gráfico e serviços digitais</span>
+<h1>Dá ao teu negócio uma imagem profissional.</h1>
+<p>CVs, cartões digitais, menus, logótipos, cartazes e mais. Vê as amostras, escolhe o serviço e fala connosco directamente.</p>
+<div class="d-actions"><a class="btn btn-wa" id="waTop" target="_blank" rel="noopener">Falar no WhatsApp</a><a class="btn btn-mail" id="mailTop">Enviar email</a></div></div></section>
+<section><div class="container"><div class="section-head"><h2>Serviços</h2></div><div class="grid" id="svcGrid"></div></div></section>
+<section><div class="container"><div class="section-head"><h2>A nossa marca em movimento</h2></div><video controls playsinline preload="none" poster="assets/video/poster.jpg" style="width:100%;max-width:720px;border-radius:16px;background:#000;display:block"><source src="assets/video/logo-animation.mp4" type="video/mp4"></video></div></section>
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="container"><div class="section-head"><h2>Como pedir</h2></div><div class="steps">
+<div class="step reveal"><span class="step-num">1</span><div><h3>Escolhe o serviço</h3><p>Vê os detalhes e as amostras de cada serviço.</p></div></div>
+<div class="step reveal"><span class="step-num">2</span><div><h3>Fala connosco</h3><p>Clica em WhatsApp ou email e envia as informações que precisamos.</p></div></div>
+<div class="step reveal"><span class="step-num">3</span><div><h3>Recebe o teu trabalho</h3><p>Combinamos contigo o prazo e a forma de pagamento.</p></div></div></div></div></section>
+<section><div class="container"><div class="cta reveal"><h2>Tens uma ideia? Vamos tratar dela.</h2><p>Diz-nos o que precisas e respondemos pelo WhatsApp.</p><a class="btn btn-wa" id="waBottom" target="_blank" rel="noopener">Falar no WhatsApp</a></div></div></section>
+</main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/data.js"></script><script src="assets/js/main.js"></script><script src="assets/js/designer-data.js"></script>
+<script>
+document.getElementById("svcGrid").innerHTML=SERVICES.map(svcCard).join("");
+const m="Olá! Vi o site da Nexus Designer e gostaria de saber mais sobre os vossos serviços.";
+["waTop","waBottom"].forEach(i=>document.getElementById(i).href=waLink(m));
+document.getElementById("mailTop").href=mailLink("Pedido de serviço — Nexus Designer",m);
+initReveal();
+</script>
+</body></html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Programa de Divulgadores — NEXUS</title>
+<meta name="description" content="10 vagas para divulgadores. Partilha os nossos links e ganha por vendas confirmadas.">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="stylesheet" href="assets/css/styles.css"><link rel="stylesheet" href="assets/css/designer.css">
+<style>
+.vagas{font-weight:800;font-size:1.1rem;color:#1D4ED8}.bar{height:10px;border-radius:99px;background:#DCE4F2;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#38BDF8,#2563EB);transition:width .6s}
+.form{display:grid;gap:12px;margin-top:14px}.form label{font-weight:600;font-size:.93rem}.form input,.form textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit;margin-top:4px;background:#fff}
+.opt{font-weight:400;color:var(--muted)}.err{color:#B91C1C;font-size:.9rem;min-height:1.2em}
+.win{text-align:center;padding:26px 14px;animation:pop .6s ease}.win .big{font-size:3rem}
+@keyframes pop{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:60}.conf i{position:absolute;top:-12px;width:9px;height:14px;animation:fall 2.4s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.8}}
+</style>
+</head>
+<body data-page="divulgar" data-brand="designer" data-no-promo="1">
+<a class="skip-link" href="#main">Saltar para o conteúdo</a>
+<header class="site-header" id="site-header"></header>
+<main id="main"><div class="container" style="max-width:720px;padding-top:18px;padding-bottom:30px">
+<span class="eyebrow">Programa de divulgadores</span>
+<h1 style="margin:8px 0">Divulga e ganha por vendas</h1>
+<p style="color:var(--muted)">Estamos a abrir <b id="tot">10</b> vagas para pessoas que queiram partilhar os nossos links (ebooks e serviços de design) com os seus contactos e grupos.</p>
+<div class="detail-block"><h2>Como funciona</h2><ul class="checklist">
+<li>Regista o teu número de WhatsApp. É só o que é obrigatório.</li>
+<li>Falamos contigo para combinar os links e os detalhes.</li>
+<li>Recebes <b id="val">10</b> MT por cada venda confirmada que resultar da tua divulgação.</li>
+<li>O pagamento só acontece quando houver venda confirmada. Sem venda, não há pagamento.</li>
+<li>Estes links podem ser de afiliação: ganhamos comissão quando alguém compra, e é assim que conseguimos pagar-te.</li></ul></div>
+<div class="detail-block"><div class="vagas" id="txt"></div><div class="bar"><i id="fill" style="width:0"></i></div>
+<div id="area"></div></div>
+<p style="font-size:.82rem;color:var(--muted)">Usamos o teu número apenas para falar contigo e pagar-te. Não o partilhamos com terceiros.</p>
+</div></main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/data.js"></script><script src="assets/js/main.js"></script><script src="assets/js/divulgar-config.js"></script>
+<script>
+const {VAGAS_TOTAL:T,VAGAS_OCUPADAS:O,VALOR_MT:V,WHATSAPP:W}=PROGRAMA;
+document.getElementById("tot").textContent=T;document.getElementById("val").textContent=V;
+const rest=Math.max(T-O,0),area=document.getElementById("area"),KEY="nx_divulgador";
+document.getElementById("fill").style.width=Math.min(100,O/T*100)+"%";
+document.getElementById("txt").textContent=rest>0?(rest===1?"Última vaga disponível!":"Restam "+rest+" de "+T+" vagas"):"Vagas esgotadas";
+let done=false;try{done=!!localStorage.getItem(KEY)}catch(e){}
+function confetti(){const c=document.createElement("div");c.className="conf";const cols=["#2563EB","#38BDF8","#16A34A","#F59E0B","#EF4444"];for(let i=0;i<60;i++){const e=document.createElement("i");e.style.left=Math.random()*100+"%";e.style.background=cols[i%5];e.style.animationDelay=Math.random()*.8+"s";c.appendChild(e)}document.body.appendChild(c);setTimeout(()=>c.remove(),4000)}
+function thanks(last){area.innerHTML='<div class="win"><div class="big">🎉</div><h2>Parabéns!</h2><p style="color:var(--muted);margin-top:6px">'+(last?'Foste a última pessoa a garantir uma vaga. ':'')+'O teu pedido foi enviado para o WhatsApp. Vamos falar contigo em breve. O botão de registo foi desativado neste telemóvel.</p></div>';confetti()}
+if(rest<=0){area.innerHTML='<p><b>As vagas deste programa já foram preenchidas.</b> Segue-nos para a próxima oportunidade.</p>'}
+else if(done){thanks(false)}
+else{area.innerHTML='<form class="form" id="f" novalidate><div><label for="n">Número de WhatsApp *</label><input id="n" inputmode="tel" autocomplete="tel" placeholder="Ex.: 84 123 4567" required></div><div><label for="m">Mensagem <span class="opt">(opcional)</span></label><textarea id="m" rows="3" placeholder="Queres dizer-nos alguma coisa?"></textarea></div><div class="err" id="e" role="alert"></div><button class="btn btn-wa btn-block" type="submit">Quero uma vaga</button></form>';
+document.getElementById("f").addEventListener("submit",ev=>{ev.preventDefault();const n=document.getElementById("n").value.replace(/[^\d+]/g,"");if(n.replace(/\D/g,"").length<9){document.getElementById("e").textContent="Escreve um número válido (mínimo 9 dígitos).";return}
+const m=document.getElementById("m").value.trim();const txt="Olá! Quero uma vaga no programa de divulgadores.\nMeu número: "+n+(m?"\nMensagem: "+m:"");
+try{localStorage.setItem(KEY,"1")}catch(e){}
+window.open("https://wa.me/"+W+"?text="+encodeURIComponent(txt),"_blank");thanks(rest===1)})}
+</script>
+</body></html>

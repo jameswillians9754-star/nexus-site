@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Categorias — NEXUS EBOOKS</title>
+<meta name="description" content="Explora ebooks por categoria: finanças, negócios, marketing, tecnologia, culinária, agricultura e mais.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="categories">
+<a class="skip-link" href="#main">Saltar para o conteúdo</a>
+<header class="site-header" id="site-header"></header>
+<main id="main"><section class="page-hero"><div class="container"><h1>Categorias</h1><p>Escolhe uma área de interesse para abrir o catálogo já filtrado.</p></div></section>
+<section style="padding-top:12px"><div class="container"><div class="grid grid-4" id="catsGrid"></div></div></section></main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/data.js"></script><script src="assets/js/main.js"></script>
+<script>
+document.getElementById("catsGrid").innerHTML=CATEGORIES.map(c=>{const n=EBOOKS.filter(b=>b.category===c.id).length;return `<a class="cat-card reveal" href="catalogo.html?categoria=${c.id}"><span class="count">${n} ebook${n===1?"":"s"}</span><h3>${c.name}</h3><p>Abrir catálogo filtrado</p></a>`;}).join("");initReveal();
+</script>
+</body></html>

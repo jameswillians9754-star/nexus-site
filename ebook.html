@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ebook — NEXUS EBOOKS</title>
+<meta name="description" content="Detalhes do ebook na NEXUS EBOOKS.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="catalog">
+<a class="skip-link" href="#main">Saltar para o conteúdo</a>
+<header class="site-header" id="site-header"></header>
+<main id="main"><div class="container"><div class="detail" id="detail"><p class="result-count">A carregar ebook...</p></div></div></main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="assets/js/data.js"></script><script src="assets/js/main.js"></script>
+<script>
+const box=document.getElementById("detail");
+const slug=new URLSearchParams(location.search).get("id");
+const book=EBOOKS.find(b=>b.slug===slug);
+if(!book){location.replace("404.html");}
+else{
+document.title=book.title+" — NEXUS EBOOKS";
+box.innerHTML=`<div class="detail-cover reveal">${coverHTML(book)}</div><div class="detail-info reveal"><span class="tag">${catName(book.category)}</span><h1>${book.title}</h1><p class="desc">${book.fullDescription}</p>${book.tags.length?`<p class="result-count">Etiquetas: ${book.tags.join(", ")}</p>`:""}<div class="buy-area"><a class="btn btn-primary btn-block" href="${book.affiliateUrl}" target="_blank" rel="noopener noreferrer sponsored">Comprar agora</a><a class="btn btn-outline btn-block" href="catalogo.html">Voltar ao catálogo</a></div><p class="notice">A compra, o pagamento e a entrega deste ebook são processados pela plataforma de afiliados responsável pelo produto. A NEXUS EBOOKS não processa pagamentos nem entrega ficheiros directamente.</p><p class="notice">A descrição detalhada deste ebook precisa de confirmação com base na página oficial do produto.</p><div class="detail-block"><h2>O que vais encontrar</h2><ul>${book.benefits.map(i=>`<li>${i}</li>`).join("")}</ul></div><div class="detail-block"><h2>Benefícios</h2><ul><li>Conteúdo focado no tema "${book.title}"</li><li>Material em formato ebook para leitura no telemóvel</li><li>Acesso através da plataforma de afiliados após a compra</li></ul></div><div class="detail-block"><h2>Para quem poderá ser útil</h2><ul>${book.audience.map(i=>`<li>${i}</li>`).join("")}</ul></div></div>`;}
+initReveal();
+</script>
+</body></html>
